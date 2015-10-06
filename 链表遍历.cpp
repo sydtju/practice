@@ -10,7 +10,7 @@ struct node{
 	node *next;
 	node(int data){
 		this->data=data;
-		next=NULL;
+		this->next=NULL;
 	}
 };
 node *init(int num){
