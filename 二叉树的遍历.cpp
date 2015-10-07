@@ -32,28 +32,67 @@ void frist(node *head){
 	frist(head->left);
 	frist(head->right);
 }
-void mid(node *head){
-	if(!head) return;
-	frist(head->left);
-	cout<<head->data<<"  ";
-	frist(head->right);
-}
+
 void back(node *head){
 	if(!head) return;
-	frist(head->left);
-	frist(head->right);
+	back(head->left);
+	back(head->right);
 	cout<<head->data<<"  ";
+}
+void frist_s(node *head){
+	if(!head) return ;
+	stack<node*> s;
+	s.push(head);
+	node *root=NULL;
+	while (s.size())
+	{
+		root=s.top();
+		s.pop();
+		cout<<root->data<<"  ";
+		if(root->right) s.push(root->right);
+		if(root->left) s.push(root->left);
+	}
+}
+void mid(node *head){
+	if(!head) return;
+	mid(head->left);
+	cout<<head->data<<"  ";
+	mid(head->right);
+}
+void mid_s(node *head){
+	stack<node*> s;
+	while (s.size()||head)
+	{
+		if (head!=NULL)
+		{
+			s.push(head);
+			head=head->left;
+		} 
+		else
+		{
+			head=s.top();
+			s.pop();
+			cout<<head->data<<"  ";
+			head=head->right;
+		}
+	}
 }
 int main(){
 	stack<int> s;
 	node* head=init();
-	cout<<"前序遍历是：";	
+	cout<<"前序遍历是：\n";	
 	frist(head);
 	cout<<endl;
-	cout<<"中序遍历是：";	
+	cout<<"非递归前序遍历是：\n";	
+	frist_s(head);
+	cout<<endl;
+	cout<<"中序遍历是：\n";	
 	mid(head);
 	cout<<endl;
-	cout<<"后序遍历是：";	
+	cout<<"非递归中序遍历是：\n";	
+	mid_s(head);
+	cout<<endl;
+	cout<<"后序遍历是：\n";	
 	back(head);
 	cout<<endl;
 	return 0;
